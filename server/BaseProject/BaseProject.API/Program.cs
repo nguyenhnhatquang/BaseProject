@@ -2,9 +2,12 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using BaseProject.API.Middleware;
 using BaseProject.API.Utils.OpenApi;
+using BaseProject.Domain.Shares;
 using BaseProject.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ApplicationDbContext>();
 
 builder.Services.AddCors();
 
@@ -19,6 +22,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(ConfigureSwaggerOptions.SetupAction);
 
 builder.Services.AddApplication();
+
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
 builder.Services.Configure<JsonOptions>(options =>
 {
