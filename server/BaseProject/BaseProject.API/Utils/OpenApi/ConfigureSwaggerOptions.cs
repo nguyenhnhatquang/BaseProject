@@ -1,7 +1,7 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace BaseProject.API.OpenApi;
+namespace BaseProject.API.Utils.OpenApi;
 
 public static class ConfigureSwaggerOptions
 {

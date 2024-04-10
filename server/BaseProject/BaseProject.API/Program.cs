@@ -1,7 +1,8 @@
 using System.Text.Json.Serialization;
-using BaseProject.API.Middleware;
-using BaseProject.API.OpenApi;
 using Microsoft.AspNetCore.Mvc;
+using BaseProject.API.Middleware;
+using BaseProject.API.Utils.OpenApi;
+using BaseProject.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(ConfigureSwaggerOptions.SetupAction);
+
+builder.Services.AddApplication();
 
 builder.Services.Configure<JsonOptions>(options =>
 {
@@ -39,6 +42,8 @@ app.UseCors(x => x
     .AllowAnyHeader()
     .AllowCredentials()
 );
+
+app.UseMiddleware<JwtMiddleware>();
 
 app.UseHttpsRedirection();
 

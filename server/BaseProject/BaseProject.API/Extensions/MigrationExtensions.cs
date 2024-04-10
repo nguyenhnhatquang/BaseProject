@@ -1,4 +1,5 @@
 namespace BaseProject.API.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 public static class MigrationExtensions
 {
