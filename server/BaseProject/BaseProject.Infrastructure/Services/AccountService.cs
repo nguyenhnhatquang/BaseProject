@@ -1,4 +1,3 @@
-
 namespace BaseProject.Infrastructure.Services;
 
 using BaseProject.Domain.Entities;
@@ -32,12 +31,12 @@ public class AccountService : IAccountService
         {
             return Result.Failure<AccountResponse>(AccountErrors.InCorrect);
         }
-        
+
         var jwtToken = _jwtUtils.GenerateJwtToken(account);
         var refreshToken = _jwtUtils.GenerateRefreshToken(ipAddress);
         account.RefreshTokens ??= [];
-        
-        if (account.RefreshTokens.Any(x=> x.CreatedByIp == ipAddress))
+
+        if (account.RefreshTokens.Any(x => x.CreatedByIp == ipAddress))
         {
             refreshToken = account.RefreshTokens.First(x => x.CreatedByIp.Equals(ipAddress));
         }
@@ -45,12 +44,12 @@ public class AccountService : IAccountService
         {
             account.RefreshTokens.Add(refreshToken);
         }
-        
+
         RemoveOldRefreshTokens(account);
-        
+
         await _unitOfWork.AccountRepository.UpdateAsync(account);
         await _unitOfWork.CompleteAsync();
-        
+
         var response = new AccountResponse
         {
             Id = account.Id,
@@ -65,12 +64,13 @@ public class AccountService : IAccountService
             Roles = account.AccountRoles.Select(x => x.Role).ToList(),
             RefreshToken = refreshToken.Token,
         };
-        
+
         return Result.Success(response);
     }
-    
+
     private void RemoveOldRefreshTokens(Account account)
     {
-        account.RefreshTokens.RemoveAll(x => !x.IsActive && x.CreatedOnUtc.AddDays(_appSettings.RefreshTokenTTL) <= DateTime.UtcNow);
+        account.RefreshTokens.RemoveAll(x =>
+            !x.IsActive && x.CreatedOnUtc.AddDays(_appSettings.RefreshTokenTTL) <= DateTime.UtcNow);
     }
 }

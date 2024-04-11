@@ -26,7 +26,7 @@ public class Account :EntityAuditBase
     [JsonIgnore]
     public ICollection<AccountRole> AccountRoles { get; init; }
     [JsonIgnore]
-    public List<RefreshToken> RefreshTokens { get; set; }
+    public List<RefreshToken>? RefreshTokens { get; set; }
 
     public bool OwnsToken(string token)
     {
