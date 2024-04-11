@@ -9,7 +9,7 @@ public class Error
 
     public Result ToResult() => Result.Failure(this);
 
-    private Error(string code, string description)
+    public Error(string code, string description)
     {
         Code = code;
         Description = description;

@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using BaseProject.API.Middleware;
+using BaseProject.API.Utils.Database;
 using BaseProject.API.Utils.OpenApi;
 using BaseProject.Domain.Shares;
 using BaseProject.Infrastructure;
@@ -21,8 +22,6 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(ConfigureSwaggerOptions.SetupAction);
 
-builder.Services.AddApplication();
-
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
 builder.Services.Configure<JsonOptions>(options =>
@@ -30,10 +29,28 @@ builder.Services.Configure<JsonOptions>(options =>
     options.JsonSerializerOptions.PropertyNamingPolicy = null;
 });
 
+builder.Services.AddApplication();
+
 builder.Services.AddExceptionHandler<ExceptionHandlingMiddleware>();
+
 builder.Services.AddProblemDetails();
 
 var app = builder.Build();
+
+// Init Database Record
+using (var scope = app.Services.CreateScope())
+{
+    var servicesDb = scope.ServiceProvider;
+    try
+    {
+        var context = servicesDb.GetRequiredService<ApplicationDbContext>();
+        DbInitializer.Initialize(context);
+    }
+    catch
+    {
+        // ignored
+    }
+}
 
 if (app.Environment.IsDevelopment())
 {

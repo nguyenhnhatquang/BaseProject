@@ -1,5 +1,7 @@
-namespace BaseProject.API.Extensions;
+using BaseProject.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+
+namespace BaseProject.API.Utils.Extensions;
 
 public static class MigrationExtensions
 {
@@ -7,8 +9,8 @@ public static class MigrationExtensions
     {
         using var scope = app.Services.CreateScope();
         
-        //var dbContext = scope.ServiceProvider.GetRequiredService<BaseProjectDbContext>();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         
-        //dbContext.Database.Migrate();
+        dbContext.Database.Migrate();
     }
 }
