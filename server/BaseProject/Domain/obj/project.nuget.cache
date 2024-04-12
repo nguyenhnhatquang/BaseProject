@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "MeQivyJRvuC1VPFBJ5Pk4ryREkFmG4SdEfmYo3et5Wlb0caci8eqng/l8Eisf72S8BzBlz2ucnM9TWDT7KrTXw==",
+  "success": true,
+  "projectFilePath": "D:\\MyProject\\BaseProject\\server\\BaseProject\\Domain\\Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Dell\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
