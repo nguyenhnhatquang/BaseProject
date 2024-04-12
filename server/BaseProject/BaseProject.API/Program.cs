@@ -5,8 +5,11 @@ using BaseProject.API.Utils.Database;
 using BaseProject.API.Utils.OpenApi;
 using BaseProject.Domain.Shares;
 using BaseProject.Infrastructure;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddDbContext<ApplicationDbContext>();
 

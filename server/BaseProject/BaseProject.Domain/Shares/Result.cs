@@ -3,8 +3,8 @@ namespace BaseProject.Domain.Shares;
 public class Result
 {
     public static Result Success() => new(true, Error.None);
-    public static Result<TValue> Success<TValue>(TValue value) => new(value, true, Error.None);
     public static Result Failure(Error error) => new(false, error);
+    public static Result<TValue> Success<TValue>(TValue value) => new(value, true, Error.None);
     public static Result<TValue> Failure<TValue>(Error error) => new(default, false, error);
     
     protected Result(bool isSuccess, Error error)

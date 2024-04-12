@@ -10,7 +10,7 @@ public class AuthorizeAttribute : Attribute, IAuthorizationFilter
 {
     private readonly IList<AccountPermission> _roles;
 
-    public AuthorizeAttribute(params AccountPermission[] roles)
+    public AuthorizeAttribute(params AccountPermission[]? roles)
     {
         _roles = roles ?? [];
     }

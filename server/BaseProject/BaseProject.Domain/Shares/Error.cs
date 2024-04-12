@@ -7,8 +7,6 @@ public class Error
 
     public static implicit operator Result(Error error) => Result.Failure(error);
 
-    public Result ToResult() => Result.Failure(this);
-
     public Error(string code, string description)
     {
         Code = code;
